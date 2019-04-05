@@ -196,14 +196,12 @@ impl oak::Node for Node {
 		// Score how well we did.
         	let mut hits = 0;
         	let unprinted_total = self.test_set_size.saturating_sub(10) as usize;
-		match self.test_animals {
-		    Some(a) => for (animal, prediction) in a
-            	    	    .iter()
-            	    	    .zip(predictions.iter_rows())
-            	    	    .take(unprinted_total) {
-            		        evaluate_prediction(&mut hits, animal, prediction);
-        	     	     }
-		}
+		for (animal, prediction) in self.test_animals
+            	    .iter()
+            	    .zip(predictions.iter_rows())
+            	    .take(unprinted_total) {
+            		evaluate_prediction(&mut hits, animal, prediction);
+        	    }
 
 		 if unprinted_total > 0 {
             	     println!("...");
